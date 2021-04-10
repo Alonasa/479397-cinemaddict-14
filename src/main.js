@@ -1,10 +1,12 @@
 import { mainMenu, itemsSorting, filters } from './view/menu.js';
-import { filmCard } from './view/film-card.js';
+import { createFilmCard } from './view/film-card.js';
 import { showMore } from './view/show-more.js';
 import { userRank } from './view/user-rank.js';
-import { popup } from './view/popup-film-descripition.js';
+//import { popup } from './view/popup-film-descripition.js';
+import { generateFilmCard } from './mock/film.js';
 
 const RENDER_QUANTITY = 5;
+const FILMS_COUNT = 20;
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -21,11 +23,15 @@ render(navigationElement, mainMenu(), 'beforeend');
 render(filtersElement, filters(), 'beforeend');
 render(sortingElement, itemsSorting(), 'beforeend');
 
+const films = new Array(FILMS_COUNT).fill().map(generateFilmCard);
+
 for (let i = 0; i < RENDER_QUANTITY; i++) {
-  render(filmsElement, filmCard(), 'beforeend');
+  render(filmsElement, createFilmCard(films[i]), 'beforeend');
 }
 render(filmsElement, showMore(), 'beforeend');
 
 render(headerElement, userRank(), 'beforeend');
 
-render(filmsElement, popup(), 'beforeend');
+//render(filmsElement, popup(), 'beforeend');
+
+console.log(films);
