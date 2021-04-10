@@ -23,7 +23,7 @@ const createFilmCard = (film) => {
           </p>
           <img src=${poster} alt="${name}" class="film-card__poster">
           <p class="film-card__description">${description}</p>
-          <a class="film-card__comments">${comments} comments</a>
+          <a class="film-card__comments">${comments.length} comments</a>
           <div class="film-card__controls">
             <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist" type="button">Add to watchlist</button>
             <button class="film-card__controls-item button film-card__controls-item--mark-as-watched" type="button">Mark as watched</button>

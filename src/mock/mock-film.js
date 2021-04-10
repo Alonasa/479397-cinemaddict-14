@@ -3,8 +3,8 @@ import dayjsRandom from 'dayjs-random';
 
 dayjs.extend(dayjsRandom);
 
-import './popup.js';
-import { comment } from './comment.js';
+import './mock-popup.js';
+import { generateRandomComments } from './mock-comment.js';
 //prettier-ignore
 import {
   getRandomArrItem,
@@ -12,6 +12,8 @@ import {
   getRandomNumber
 } from './utils.js';
 import { MAX_RANDOM, FILMS_GENRES, FILMS_NAMES } from './const.js';
+
+let filmId = 0;
 
 const generateDescription = () => {
   const descriptions = [
@@ -67,15 +69,6 @@ const generateRandomDescription = () => {
   return str;
 };
 
-const generateRandomComments = () => {
-  const comments = [];
-  const random = getRandomInteger(0, MAX_RANDOM - 1);
-  for (let i = 0; i <= random; i++) {
-    comments.push(comment());
-  }
-  return comments;
-};
-
 const generateRandomList = (arr) => {
   const list = [];
   const random = getRandomInteger(0, arr.length - 1);
@@ -101,14 +94,29 @@ function insert_dash(str) {
     .replace(/\s/g, '-');
 }
 
+const generateId = () => {
+  return filmId++;
+};
+
 const generateFilmCard = () => {
   const randomFilm = getRandomArrItem(FILMS_NAMES);
+  const nameChecking = () => {
+    if (
+      randomFilm === 'Made for each other' ||
+      randomFilm === 'Popeye meets sinbad'
+    ) {
+      return '.png';
+    } else {
+      return '.jpg';
+    }
+  };
   return {
     film: {
+      id: generateId(filmId),
       name: randomFilm,
       alternativeName: randomFilm,
       rating: getRandomNumber(1, 10, 1),
-      poster: './images/posters/' + insert_dash(randomFilm) + '.jpg',
+      poster: './images/posters/' + insert_dash(randomFilm) + nameChecking(),
       ageRating: getRandomInteger(0, 18),
       director: getRandomArrItem(ACTORS),
       writers: generateRandomList(ACTORS),
@@ -117,10 +125,10 @@ const generateFilmCard = () => {
         date: dayjs.between('1925-01-01', '2021-04-10').format('DD MMMM YYYY'),
         releaseCountry: getRandomArrItem(COUNTRIES),
       },
-      runtime: getRandomInteger(30, 200),
+      runtime: getRandomInteger(40, 200),
       genre: [getRandomArrItem(FILMS_GENRES)],
       description: shortDescription(generateRandomDescription()),
-      comments: generateRandomComments().length,
+      comments: generateRandomComments(),
     },
 
     user: {

@@ -1,4 +1,4 @@
-const filmComment = () => {
+const createFilmComment = () => {
   return `<li class="film-details__comment">
             <span class="film-details__comment-emoji">
               <img src="./images/emoji/puke.png" width="55" height="55" alt="emoji-puke">
@@ -14,4 +14,4 @@ const filmComment = () => {
           </li>`;
 };
 
-export { filmComment };
+export { createFilmComment };

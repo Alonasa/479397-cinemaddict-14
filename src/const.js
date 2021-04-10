@@ -1,0 +1,4 @@
+const RENDER_QUANTITY = 5;
+const FILMS_COUNT = 20;
+
+export { RENDER_QUANTITY, FILMS_COUNT };
